@@ -16,3 +16,52 @@ body{
     text-transform: uppercase;
     margin: 10px 0; /* حشو من فوق وتحت 10 بكسل ومن اليمين والشمال صفر*/
 }
+input{ /*كل المدخلات اللي في الموقع*/
+    width: 100%;
+    height: 20PX;
+    outline: none;
+    border: none;
+    background-color: rgb(31, 30, 30);
+    margin: 4px 0; 
+    border-radius: 4px; 
+    padding: 4px; /*الحشو من جوه*/
+    color: white;
+}
+input:focus{
+    background-color: rgb(5, 5, 5);
+    /*لما المستخدم يدوس على المدخل يغير اللون*/
+    transform: scale(1.05);
+    /*لما ادوس على المدخل يكبر معايا*/
+}
+.price input{
+    width: 20%;
+}
+#total{ /*زرار التوتال*/
+    background-color: red;
+    padding: 5px 2px;
+    border-radius: 4px;
+    margin: 5px 0;
+}
+#total::before{
+    content: 'Total: ';
+}
+button{ /*زرار make*/
+    width: 100%;
+    height: 20px;
+    outline: none;
+    border: none;
+    margin: 4px 0;
+    cursor: pointer; /*شكل الايد*/
+    padding: 4px;
+    border-radius: 4px;
+    margin: auto;
+    background-color: rgb(92, 11, 167);
+    color: white;
+    transition: 0.5s;
+    /*تباعد الحروف يبقى بطئ */
+}
+button:hover{ /*زرار make*/
+    background-color: blueviolet;
+    letter-spacing: 1px;
+    /*لما ضغط على make يعمل تباعد بين الحروف*/
+}
