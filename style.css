@@ -50,11 +50,10 @@ button{ /*زرار make*/
     height: 20px;
     outline: none;
     border: none;
-    margin: 4px 0;
+    margin: 4px 4px;
     cursor: pointer; /*شكل الايد*/
     padding: 4px;
-    border-radius: 4px;
-    margin: auto;
+    border-radius: 5px 4px;
     background-color: rgb(92, 11, 167);
     color: white;
     transition: 0.5s;
@@ -64,4 +63,27 @@ button:hover{ /*زرار make*/
     background-color: blueviolet;
     letter-spacing: 1px;
     /*لما ضغط على make يعمل تباعد بين الحروف*/
+}
+
+
+/* عايز اخلى الزرارين جنب بعض وبينهم مسافة*/
+.btnSearch{
+    display: flex;
+    justify-content: space-between;
+}
+.btnSearch button{
+    width: 45%;
+}
+
+/*هنظظبط الجدول*/
+table{
+    width: 100%;
+    text-align: center;
+    margin: 10px 0;
+}
+table th{
+    text-transform: uppercase;
+}
+th td {
+    padding: 5px;
 }
