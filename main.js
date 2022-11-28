@@ -50,14 +50,54 @@ function getTotal(params) {
 
 
 
-
-
 //second function
 // بتعملي منتج جديد
 // make product 
+// لما بتتعامل م داتا اول حاجة تفكر فيها انت هتحفها فين 
+// اسهل حاجة تحف فيها داتا المصفوفة لانها بسمحك تعمل حجات كتتير 
+//let dataPro = []; //فيه داتا المشروع كله
+// حل الخط المنطقي للسطر اللي فوق
+let dataPro;
+if (localStorage.product) {
+    dataPro = JSON.parse(localStorage.product)   
+}else{
+    dataPro = [];
+}
+
+
+// عايز احفظ الداتا لما اضغط لى زرار make
+submit.onclick = function () {
+    //هجمع ملعومات المنتج الواحد في كائن
+    let newPro = {
+        title : title.value,
+        price : price.value,
+        taxes : taxes.value,
+        ads : ads.value,
+        discount : discount.value,
+        total : total.innerHTML,
+        count : count.value,
+        category : category.value
+    }
+    //console.log(newPro);
+    // احفظ كائنات المستخدم في مصفوفة علشان متضعش
+    dataPro.push(newPro);
+    //console.log(dataPro);
+    //لو عملت ريفرش للصفحة الداتا هتروح
+    // كمان عايز احفظ البيانات في الاكرة المحلية علشان متضعش
+    localStorage.setItem('product', JSON.stringify(dataPro) )
+    // الذاكرة مبتاخدش غير نص مش مصفوفة 
+    //let dataPro = [];
+    //الجافا اسكربت بتقرا من فوق لتحت فلو خزنت حجات في الاكرة وعملت رفرش هتفضل الحجات بس ملف الجافا هيتقرامن الاول 
+    // فلما ادخل منتج جديد كله هيتمسح وهيعمل مصفوفة جديدة فاضية 
+    // علشان كده لازم الاول اتاكد ان الذاكرة مش فاضية وده خطا منطقي
+
+
+}
+
+
+
 
 //3rd function 
-// كمان عايز احفظ البيانات في الاكرة المحلية علشان متضعش
 //save localstorage
 
 
