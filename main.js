@@ -1,3 +1,4 @@
+//قبل ماتكتب اي دالة لازم تعرف امتى هتشغلها 
 //1-عايز انادي على المدخلات 
 let title = document.getElementById('title');
 let price = document.getElementById('price');
@@ -8,6 +9,7 @@ let total = document.getElementById('total');
 let count = document.getElementById('count');
 let category = document.getElementById('category');
 let submit = document.getElementById('submit');
+let search = document.getElementById('search');
 //2-لازم تختبر ا انت جايبهم صح
 //console.log(title,price,taxes,ads,discount,total,count,category,submit);
 
@@ -68,14 +70,14 @@ if (localStorage.product) {
 submit.onclick = function () {
     //هجمع ملعومات المنتج الواحد في كائن
     let newPro = {
-        title : title.value,
+        title : title.value.toLowerCase(),
         price : price.value,
         taxes : taxes.value,
         ads : ads.value,
         discount : discount.value,
         total : total.innerHTML,
         count : count.value,
-        category : category.value
+        category : category.value.toLowerCase()
     }
 
     if (mood === 'make'){
@@ -155,24 +157,20 @@ function showData()
     let table = '';
     // لو عندك مصفوفة فيها داتا لازم تعمل لووووب
     for (let i = 0; i < dataPro.length; i++) {
-        
         //product = dataPro[i]; 
-        table += 
-        `
-                            <tr>
-                                <td>${i}</td>
-                                <td>${dataPro[i].title}</td>
-                                <td>${dataPro[i].price}</td>
-                                <td>${dataPro[i].taxes}</td>
-                                <td>${dataPro[i].ads}</td>
-                                <td>${dataPro[i].discount}</td>
-                                <td>${dataPro[i].total}</td>
-                                <td>${dataPro[i].category}</td>
-                                <td><button onclick="updatePro(${i})" id="update">update</button></td>
-                                <td><button onclick="deletePro(${i})" id="delete">delete</button></td>
-                            </tr>
-        
-        `
+
+        table +=  ` <tr>
+                        <td>${i}</td>
+                        <td>${dataPro[i].title}</td>
+                        <td>${dataPro[i].price}</td>
+                        <td>${dataPro[i].taxes}</td>
+                        <td>${dataPro[i].ads}</td>
+                        <td>${dataPro[i].discount}</td>
+                        <td>${dataPro[i].total}</td>
+                        <td>${dataPro[i].category}</td>
+                        <td><button onclick="updatePro(${i})" id="update">update</button></td>
+                        <td><button onclick="deletePro(${i})" id="delete">delete</button></td>
+                    </tr> `
     }
     document.getElementById('tbody').innerHTML = table;
     
@@ -271,9 +269,87 @@ function updatePro (i){
 
 
 //search
+//هعمل مود للبحث سواء بالاسم او بالنوع
+let searchMood = 'title';
+function getSearchMood(id){
+    // طبعا هشغل الدالة لما اضغط على الازرار فهروح لعدلها
+    // هاخد الاي دي المبعوت من زرار ال html
+    //console.log(id);
+    if (id === 'searchTitle') {
+        searchMood = 'title';
+        search.placeholder = 'search by title'
+    }else{
+        searchMood = 'category';
+        search.placeholder = 'search by category'
+        
+    };
+    //console.log(searchMood);
+    search.focus();
+    search.value = "";
+    showData();
+}
 
 
-// مش عايز يكن فيه مدخل فاضي او بيانات مش عايزها تدخل
-//claen data
+
+
+
+function searchData(value) {
+    //هشغلها لما المستخدم يكتب اي حاجة في مربع البحث
+    // هروح اعدل ال html
+    //console.log(value);
+    let table = '';
+    if (searchMood == 'title') {
+        // لما بدور على حاجة جوه مصفوفة بعمل لوب 
+        
+        for (let i = 0; i < dataPro.length; i++) {
+            if(dataPro[i].title.includes(value.toLowerCase())){
+            //console.log(i);
+            //دلوقتي انا عرفت رقم او ارقام المنتجات اللي ببحث عنها
+            //عايز بس هي اللي تظهر
+            table +=   `<tr>
+                            <td>${i}</td>
+                            <td>${dataPro[i].title}</td>
+                            <td>${dataPro[i].price}</td>
+                            <td>${dataPro[i].taxes}</td>
+                            <td>${dataPro[i].ads}</td>
+                            <td>${dataPro[i].discount}</td>
+                            <td>${dataPro[i].total}</td>
+                            <td>${dataPro[i].category}</td>
+                            <td><button onclick="updatePro(${i})" id="update">update</button></td>
+                            <td><button onclick="deletePro(${i})" id="delete">delete</button></td>
+                        </tr>`
+            }
+        
+       }
+    }else{
+            for (let i = 0; i < dataPro.length; i++) {
+            if(dataPro[i].category.includes(value.toLowerCase())){
+            //console.log(i);
+            //دلوقتي انا عرفت رقم او ارقام المنتجات اللي ببحث عنها
+            //عايز بس هي اللي تظهر
+            table +=   `<tr>
+                            <td>${i}</td>
+                            <td>${dataPro[i].title}</td>
+                            <td>${dataPro[i].price}</td>
+                            <td>${dataPro[i].taxes}</td>
+                            <td>${dataPro[i].ads}</td>
+                            <td>${dataPro[i].discount}</td>
+                            <td>${dataPro[i].total}</td>
+                            <td>${dataPro[i].category}</td>
+                            <td><button onclick="updatePro(${i})" id="update">update</button></td>
+                            <td><button onclick="deletePro(${i})" id="delete">delete</button></td>
+                        </tr>`
+
+
+        }
+        
+       }
+
+    }
+    //بدل ماكتبها مرتين في لو او مش لو بكتبها براهم وخلاص
+    document.getElementById('tbody').innerHTML = table;
+
+}
+
 
 
