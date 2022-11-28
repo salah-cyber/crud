@@ -140,7 +140,7 @@ function showData()
                                 <td>${dataPro[i].total}</td>
                                 <td>${dataPro[i].category}</td>
                                 <td><button id="update">update</button></td>
-                                <td><button id="delete">delete</button></td>
+                                <td><button onclick="deletePro(${i})" id="delete">delete</button></td>
                             </tr>
         
         `
@@ -155,11 +155,33 @@ showData();
 
 
 
+
+
+
+
+//delete only on product
+// لازم تمرر لدالة الحف المنتج اللي انت عايز تمسحه
+function deletePro(i)
+{
+    //console.log(i);
+    dataPro.splice(i,1) // امسح من مكان اي عنصر واحد
+    // كده هيمسح من المصفوفة بس 
+    // عايز امسحها من الذاكرة كمان 
+    // باني اعمل تحديث للذاكرة بالمصفوفة الجديدة 
+    localStorage.product = JSON.stringify(dataPro);
+    // delete from html 
+    // fn that responsible for html is showData
+    showData()
+}
+
+
+
+
+
+
 //وظيفة لو فيه عدد يعملهم 
 //count
 
-
-//delete
 
 //update
 
