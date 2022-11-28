@@ -8,29 +8,20 @@ let count = document.getElementById('count');
 let category = document.getElementById('category');
 let submit = document.getElementById('submit');
 let search = document.getElementById('search');
-let mood = 'make';
+let mood = 'add';
 let ProductUpdateIndex; 
 
 
 function getTotal(params) {
-    // انا عايز الناتج يخرج لو دخلت اي رقم يعني مش لازم ادخل كل الارقام
-    // onkeyup="getTotal()" لما تكتب الرقم وتشيل ايدك من على الكيبورد احسب التوتال
-    //console.log('done');
-
-    // عايزه يحسسب لما يكون فيه رقم ولابد في السعر ومش مهم الباقي
     if (price.value) {
-        //input value is string 
-        // ضيف زائد قبل المتير 
         let result = (+price.value + +taxes.value + +ads.value)
          - +discount.value;
         total.innerHTML = result;
-        // انا عايز لو فيه ناتج يبقى لونه اخضر لو مفيش يبقى احمر
         total.style.background = '#040';
     }else{
         total.innerHTML = '';
         total.style.background = 'rgb(218, 0, 0)';
     }
-    
 }
 
 
@@ -54,22 +45,27 @@ submit.onclick = function () {
         count : count.value,
         category : category.value.toLowerCase()
     }
-    if (mood === 'make'){
-        if(newPro.count > 1){
-            for (let i = 0; i < newPro.count; i++) {
-            dataPro.push(newPro); 
+    if (title.value 
+        && price.value 
+        && category.value
+        && count.value < 100) {
+        if (mood === 'add'){
+            if(newPro.count > 1){
+                for (let i = 0; i < newPro.count; i++) {
+                dataPro.push(newPro); 
+                }
+            }else { 
+                dataPro.push(newPro); 
             }
-        }else { 
-            dataPro.push(newPro); 
+        }else{
+            dataPro[ProductUpdateIndex] = newPro;
+            mood = 'add'
+            submit.innerHTML = 'add'
+            count.style.display = 'block';
         }
-    }else{
-        dataPro[ProductUpdateIndex] = newPro;
-        mood = 'make'
-        submit.innerHTML = 'make'
-        count.style.display = 'block';
+        clearInputs();
     }
     localStorage.setItem('product', JSON.stringify(dataPro) )
-    clearInputs();
     showData();
 }
 
@@ -101,7 +97,7 @@ function showData()
     let table = '';
     for (let i = 0; i < dataPro.length; i++) {
         table +=  ` <tr>
-                        <td>${i}</td>
+                        <td>${i+1}</td>
                         <td>${dataPro[i].title}</td>
                         <td>${dataPro[i].price}</td>
                         <td>${dataPro[i].taxes}</td>
