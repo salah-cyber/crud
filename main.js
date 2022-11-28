@@ -42,14 +42,6 @@ function getTotal(params) {
 
 
 
-
-
-
-
-
-
-
-
 //second function
 // بتعملي منتج جديد
 // make product 
@@ -66,6 +58,7 @@ if (localStorage.product) {
 
 
 // عايز احفظ الداتا لما اضغط لى زرار make
+//  الدالة الرئيسية للمشروع
 submit.onclick = function () {
     //هجمع ملعومات المنتج الواحد في كائن
     let newPro = {
@@ -93,6 +86,7 @@ submit.onclick = function () {
     // فلما ادخل منتج جديد كله هيتمسح وهيعمل مصفوفة جديدة فاضية 
     // علشان كده لازم الاول اتاكد ان الذاكرة مش فاضية وده خطا منطقي
 
+    clearInputs()
 
 }
 
@@ -104,6 +98,21 @@ submit.onclick = function () {
 //4th function 
 // لما بدخل منتج وادو عمل المدخلات اللي دخلها المستخدم بتدنها في الصفحة انا عايز اشيلها علشان يعرف يدخل تاني بدل مايقعد يمسح 
 //clear inputs
+function clearInputs() {
+    title.value = '';
+    price.value = '';
+    taxes.value = '';
+    ads.value = '';
+    total.innerHTML = '';
+    discount.value = '';
+    count.value = '';
+    category.value = '';
+}
+
+
+
+
+
 
 
 // وظائف متعلقة باول عملية في ال crud وهي ال read
