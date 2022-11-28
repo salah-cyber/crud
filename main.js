@@ -1,5 +1,3 @@
-//قبل ماتكتب اي دالة لازم تعرف امتى هتشغلها 
-//1-عايز انادي على المدخلات 
 let title = document.getElementById('title');
 let price = document.getElementById('price');
 let taxes = document.getElementById('taxes');
@@ -10,21 +8,10 @@ let count = document.getElementById('count');
 let category = document.getElementById('category');
 let submit = document.getElementById('submit');
 let search = document.getElementById('search');
-//2-لازم تختبر ا انت جايبهم صح
-//console.log(title,price,taxes,ads,discount,total,count,category,submit);
-
-
-// عندي زرار اضافة منتج هو نفسه تعديل منتج 
 let mood = 'make';
-// متغير عام بياخد قيمة رقم المنتج اللي هعدله من دالة التحديث
 let ProductUpdateIndex; 
 
 
-
-// وائف متعلقة باول عملية في ال crud وهي ال make
-// first function
-//هتاخد السعر والاعلان والضاريب وتحسب التوتال
-// name -> get total 
 function getTotal(params) {
     // انا عايز الناتج يخرج لو دخلت اي رقم يعني مش لازم ادخل كل الارقام
     // onkeyup="getTotal()" لما تكتب الرقم وتشيل ايدك من على الكيبورد احسب التوتال
@@ -47,16 +34,6 @@ function getTotal(params) {
 }
 
 
-
-
-
-//second function
-// بتعملي منتج جديد
-// make product 
-// لما بتتعامل م داتا اول حاجة تفكر فيها انت هتحفها فين 
-// اسهل حاجة تحف فيها داتا المصفوفة لانها بسمحك تعمل حجات كتتير 
-//let dataPro = []; //فيه داتا المشروع كله
-// حل الخط المنطقي للسطر اللي فوق
 let dataPro;
 if (localStorage.product) {
     dataPro = JSON.parse(localStorage.product)   
@@ -65,10 +42,8 @@ if (localStorage.product) {
 }
 
 
-// عايز احفظ الداتا لما اضغط لى زرار make
-//  الدالة الرئيسية للمشروع
+
 submit.onclick = function () {
-    //هجمع ملعومات المنتج الواحد في كائن
     let newPro = {
         title : title.value.toLowerCase(),
         price : price.value,
@@ -79,14 +54,13 @@ submit.onclick = function () {
         count : count.value,
         category : category.value.toLowerCase()
     }
-
     if (mood === 'make'){
         if(newPro.count > 1){
             for (let i = 0; i < newPro.count; i++) {
-            dataPro.push(newPro); // اضافة منتجات 
+            dataPro.push(newPro); 
             }
-        }else { // واحد ظريف كتبلك سالب او صفر 
-            dataPro.push(newPro); // اضافة منتج
+        }else { 
+            dataPro.push(newPro); 
         }
     }else{
         dataPro[ProductUpdateIndex] = newPro;
@@ -94,28 +68,7 @@ submit.onclick = function () {
         submit.innerHTML = 'make'
         count.style.display = 'block';
     }
-    
-
-
-    //console.log(newPro);
-    // احفظ كائنات المستخدم في مصفوفة علشان متضعش
-    //dataPro.push(newPro);
-    //console.log(dataPro);
-
-
-
-
-    //3rd function 
-    //save localstorage
-    //لو عملت ريفرش للصفحة الداتا هتروح
-    // كمان عايز احفظ البيانات في الاكرة المحلية علشان متضعش
     localStorage.setItem('product', JSON.stringify(dataPro) )
-    // الذاكرة مبتاخدش غير نص مش مصفوفة 
-    //let dataPro = [];
-    //الجافا اسكربت بتقرا من فوق لتحت فلو خزنت حجات في الاكرة وعملت رفرش هتفضل الحجات بس ملف الجافا هيتقرامن الاول 
-    // فلما ادخل منتج جديد كله هيتمسح وهيعمل مصفوفة جديدة فاضية 
-    // علشان كده لازم الاول اتاكد ان الذاكرة مش فاضية وده خطا منطقي
-
     clearInputs();
     showData();
 }
@@ -124,11 +77,6 @@ submit.onclick = function () {
 
 
 
-
-//4th function 
-// اسهل دالة
-// لما بدخل منتج وادو عمل المدخلات اللي دخلها المستخدم بتدنها في الصفحة انا عايز اشيلها علشان يعرف يدخل تاني بدل مايقعد يمسح 
-//clear inputs
 function clearInputs() {
     title.value = '';
     price.value = '';
@@ -146,19 +94,12 @@ function clearInputs() {
 
 
 
-// وظائف متعلقة بثاني عملية في ال crud وهي ال read
-//اني بعد ماعمل منتج واخزنه عايز اقرأه او اعرضه في الجدول في الصفحة بتاعتي 
-//امتع دالة
-//read
+
 function showData() 
 {
     getTotal();
-    // لان الدالة هتشتغل اول مادوس على عمل منتج يبقى خدها وروح نادي عليها من هناك
     let table = '';
-    // لو عندك مصفوفة فيها داتا لازم تعمل لووووب
     for (let i = 0; i < dataPro.length; i++) {
-        //product = dataPro[i]; 
-
         table +=  ` <tr>
                         <td>${i}</td>
                         <td>${dataPro[i].title}</td>
@@ -189,8 +130,6 @@ function showData()
 
 }
 showData(); 
-//عايز اشغل الدالة دي على طول سواء بد مااعمل عمل او لما اعيد الصفحة 
-// المنتجات ظاهرة على طول حتى لو حصل ريفرش
 
 
 
@@ -198,60 +137,33 @@ showData();
 
 
 
-//delete only on product
-// لازم تمرر لدالة الحف المنتج اللي انت عايز تمسحه
 function deletePro(i)
 {
-    //console.log(i);
-    dataPro.splice(i,1) // امسح من مكان اي عنصر واحد
-    // كده هيمسح من المصفوفة بس 
-    // عايز امسحها من الذاكرة كمان 
-    // باني اعمل تحديث للذاكرة بالمصفوفة الجديدة 
+    dataPro.splice(i,1)
     localStorage.product = JSON.stringify(dataPro);
-    // delete from html 
-    // fn that responsible for html is showData
     showData()
 }
 
 
-//deleta all
  function deleteAll()
  {
-    // الزار مش موجود لو فيه بيانات 
-    // هعمله فوق الجدول بحجز دف له واضيف الزرار بالجافا 
-    // لازم تاخد بالك ان الذاكرة والقراية بتاخد من المصفوفة 
-    // وبالتالي لو حذفت العناصر من الذاكرة هتفضل معروضة على لموقع 
     localStorage.clear();
     dataPro.splice(0);
-    // يبقى هحذف الاكرة والمصفوفة واحدث القراية
     showData()
  }
 
 
 
-//وظيفة لو فيه عدد يعملهم 
-//count
-
-
-
-
-//update
-// عايز ارفع منتجات المنتج عشان اعدلهم وبعدين اعمل تحديث فيحدث
 function updatePro (i){
-   // console.log(i);
    title.value = dataPro[i].title;
    price.value = dataPro[i].price;
    taxes.value = dataPro[i].taxes;
    ads.value = dataPro[i].ads;
    discount.value = dataPro[i].discount;
    category.value = dataPro[i].category;
-   //بشغل الدالة دي برده علشان اعرف الكلي علشان متبقاش فاضية 
    getTotal();
-   // مش محتاج مكان العداد
    count.style.display = 'none';
-   // هنغير الزرار make -> update
    submit.innerHTML = 'Update';
-   // لما ادوس على زرار التحديث اغير الموود واخليه تحديث
    mood = 'update';
    ProductUpdateIndex = i;
     scroll({
@@ -267,23 +179,14 @@ function updatePro (i){
 
 
 
-
-//search
-//هعمل مود للبحث سواء بالاسم او بالنوع
 let searchMood = 'title';
 function getSearchMood(id){
-    // طبعا هشغل الدالة لما اضغط على الازرار فهروح لعدلها
-    // هاخد الاي دي المبعوت من زرار ال html
-    //console.log(id);
     if (id === 'searchTitle') {
         searchMood = 'title';
-        search.placeholder = 'search by title'
     }else{
         searchMood = 'category';
-        search.placeholder = 'search by category'
-        
     };
-    //console.log(searchMood);
+    search.placeholder = 'search by '+ searchMood;
     search.focus();
     search.value = "";
     showData();
@@ -294,62 +197,40 @@ function getSearchMood(id){
 
 
 function searchData(value) {
-    //هشغلها لما المستخدم يكتب اي حاجة في مربع البحث
-    // هروح اعدل ال html
-    //console.log(value);
     let table = '';
+    for (let i = 0; i < dataPro.length; i++) {
     if (searchMood == 'title') {
-        // لما بدور على حاجة جوه مصفوفة بعمل لوب 
-        
-        for (let i = 0; i < dataPro.length; i++) {
-            if(dataPro[i].title.includes(value.toLowerCase())){
-            //console.log(i);
-            //دلوقتي انا عرفت رقم او ارقام المنتجات اللي ببحث عنها
-            //عايز بس هي اللي تظهر
-            table +=   `<tr>
-                            <td>${i}</td>
-                            <td>${dataPro[i].title}</td>
-                            <td>${dataPro[i].price}</td>
-                            <td>${dataPro[i].taxes}</td>
-                            <td>${dataPro[i].ads}</td>
-                            <td>${dataPro[i].discount}</td>
-                            <td>${dataPro[i].total}</td>
-                            <td>${dataPro[i].category}</td>
-                            <td><button onclick="updatePro(${i})" id="update">update</button></td>
-                            <td><button onclick="deletePro(${i})" id="delete">delete</button></td>
-                        </tr>`
-            }
-        
-       }
-    }else{
-            for (let i = 0; i < dataPro.length; i++) {
-            if(dataPro[i].category.includes(value.toLowerCase())){
-            //console.log(i);
-            //دلوقتي انا عرفت رقم او ارقام المنتجات اللي ببحث عنها
-            //عايز بس هي اللي تظهر
-            table +=   `<tr>
-                            <td>${i}</td>
-                            <td>${dataPro[i].title}</td>
-                            <td>${dataPro[i].price}</td>
-                            <td>${dataPro[i].taxes}</td>
-                            <td>${dataPro[i].ads}</td>
-                            <td>${dataPro[i].discount}</td>
-                            <td>${dataPro[i].total}</td>
-                            <td>${dataPro[i].category}</td>
-                            <td><button onclick="updatePro(${i})" id="update">update</button></td>
-                            <td><button onclick="deletePro(${i})" id="delete">delete</button></td>
-                        </tr>`
-
-
+        if(dataPro[i].title.includes(value.toLowerCase())){
+        table +=   `<tr>
+                        <td>${i}</td>
+                        <td>${dataPro[i].title}</td>
+                        <td>${dataPro[i].price}</td>
+                        <td>${dataPro[i].taxes}</td>
+                        <td>${dataPro[i].ads}</td>
+                        <td>${dataPro[i].discount}</td>
+                        <td>${dataPro[i].total}</td>
+                        <td>${dataPro[i].category}</td>
+                        <td><button onclick="updatePro(${i})" id="update">update</button></td>
+                        <td><button onclick="deletePro(${i})" id="delete">delete</button></td>
+                    </tr>`
         }
-        
-       }
-
+    }else{     
+        if(dataPro[i].category.includes(value.toLowerCase())){
+           table += `<tr>
+                        <td>${i}</td>
+                        <td>${dataPro[i].title}</td>
+                        <td>${dataPro[i].price}</td>
+                        <td>${dataPro[i].taxes}</td>
+                        <td>${dataPro[i].ads}</td>
+                        <td>${dataPro[i].discount}</td>
+                        <td>${dataPro[i].total}</td>
+                        <td>${dataPro[i].category}</td>
+                        <td><button onclick="updatePro(${i})" id="update">update</button></td>
+                        <td><button onclick="deletePro(${i})" id="delete">delete</button></td>
+                    </tr>`
+        }
     }
-    //بدل ماكتبها مرتين في لو او مش لو بكتبها براهم وخلاص
     document.getElementById('tbody').innerHTML = table;
-
+    }
 }
-
-
 
