@@ -12,8 +12,14 @@ let submit = document.getElementById('submit');
 //console.log(title,price,taxes,ads,discount,total,count,category,submit);
 
 
+// عندي زرار اضافة منتج هو نفسه تعديل منتج 
+let mood = 'make';
+// متغير عام بياخد قيمة رقم المنتج اللي هعدله من دالة التحديث
+let ProductUpdateIndex; 
 
-// وائف متعلقة باول عملية في ال crud وهي ال create
+
+
+// وائف متعلقة باول عملية في ال crud وهي ال make
 // first function
 //هتاخد السعر والاعلان والضاريب وتحسب التوتال
 // name -> get total 
@@ -72,13 +78,21 @@ submit.onclick = function () {
         category : category.value
     }
 
-    if(newPro.count > 1){
-        for (let i = 0; i < newPro.count; i++) {
-        dataPro.push(newPro);
+    if (mood === 'make'){
+        if(newPro.count > 1){
+            for (let i = 0; i < newPro.count; i++) {
+            dataPro.push(newPro); // اضافة منتجات 
+            }
+        }else { // واحد ظريف كتبلك سالب او صفر 
+            dataPro.push(newPro); // اضافة منتج
         }
-    }else { // واحد ظريف كتبلك سالب او صفر 
-        dataPro.push(newPro);
+    }else{
+        dataPro[ProductUpdateIndex] = newPro;
+        mood = 'make'
+        submit.innerHTML = 'make'
+        count.style.display = 'block';
     }
+    
 
 
     //console.log(newPro);
@@ -136,6 +150,7 @@ function clearInputs() {
 //read
 function showData() 
 {
+    getTotal();
     // لان الدالة هتشتغل اول مادوس على عمل منتج يبقى خدها وروح نادي عليها من هناك
     let table = '';
     // لو عندك مصفوفة فيها داتا لازم تعمل لووووب
@@ -153,7 +168,7 @@ function showData()
                                 <td>${dataPro[i].discount}</td>
                                 <td>${dataPro[i].total}</td>
                                 <td>${dataPro[i].category}</td>
-                                <td><button id="update">update</button></td>
+                                <td><button onclick="updatePro(${i})" id="update">update</button></td>
                                 <td><button onclick="deletePro(${i})" id="delete">delete</button></td>
                             </tr>
         
@@ -220,7 +235,40 @@ function deletePro(i)
 //count
 
 
+
+
 //update
+// عايز ارفع منتجات المنتج عشان اعدلهم وبعدين اعمل تحديث فيحدث
+function updatePro (i){
+   // console.log(i);
+   title.value = dataPro[i].title;
+   price.value = dataPro[i].price;
+   taxes.value = dataPro[i].taxes;
+   ads.value = dataPro[i].ads;
+   discount.value = dataPro[i].discount;
+   category.value = dataPro[i].category;
+   //بشغل الدالة دي برده علشان اعرف الكلي علشان متبقاش فاضية 
+   getTotal();
+   // مش محتاج مكان العداد
+   count.style.display = 'none';
+   // هنغير الزرار make -> update
+   submit.innerHTML = 'Update';
+   // لما ادوس على زرار التحديث اغير الموود واخليه تحديث
+   mood = 'update';
+   ProductUpdateIndex = i;
+    scroll({
+        top:0,
+        behavior:"smooth"
+    })
+
+
+
+}
+
+
+
+
+
 
 //search
 
