@@ -86,8 +86,8 @@ submit.onclick = function () {
     // فلما ادخل منتج جديد كله هيتمسح وهيعمل مصفوفة جديدة فاضية 
     // علشان كده لازم الاول اتاكد ان الذاكرة مش فاضية وده خطا منطقي
 
-    clearInputs()
-
+    clearInputs();
+    showData();
 }
 
 
@@ -96,6 +96,7 @@ submit.onclick = function () {
 
 
 //4th function 
+// اسهل دالة
 // لما بدخل منتج وادو عمل المدخلات اللي دخلها المستخدم بتدنها في الصفحة انا عايز اشيلها علشان يعرف يدخل تاني بدل مايقعد يمسح 
 //clear inputs
 function clearInputs() {
@@ -115,10 +116,43 @@ function clearInputs() {
 
 
 
-// وظائف متعلقة باول عملية في ال crud وهي ال read
-//first function
-//اني بعد ماعمل منتج واخزنه عايز اعرضه في الجدول في الصفحة بتاعتي 
+// وظائف متعلقة بثاني عملية في ال crud وهي ال read
+//اني بعد ماعمل منتج واخزنه عايز اقرأه او اعرضه في الجدول في الصفحة بتاعتي 
+//امتع دالة
 //read
+function showData() 
+{
+    // لان الدالة هتشتغل اول مادوس على عمل منتج يبقى خدها وروح نادي عليها من هناك
+    let table = '';
+    // لو عندك مصفوفة فيها داتا لازم تعمل لووووب
+    for (let i = 0; i < dataPro.length; i++) {
+        
+        //product = dataPro[i]; 
+        table += 
+        `
+                            <tr>
+                                <td>${i}</td>
+                                <td>${dataPro[i].title}</td>
+                                <td>${dataPro[i].price}</td>
+                                <td>${dataPro[i].taxes}</td>
+                                <td>${dataPro[i].ads}</td>
+                                <td>${dataPro[i].discount}</td>
+                                <td>${dataPro[i].total}</td>
+                                <td>${dataPro[i].category}</td>
+                                <td><button id="update">update</button></td>
+                                <td><button id="delete">delete</button></td>
+                            </tr>
+        
+        `
+    }
+    document.getElementById('tbody').innerHTML = table;
+
+
+}
+showData(); 
+//عايز اشغل الدالة دي على طول سواء بد مااعمل عمل او لما اعيد الصفحة 
+// المنتجات ظاهرة على طول حتى لو حصل ريفرش
+
 
 
 //وظيفة لو فيه عدد يعملهم 
