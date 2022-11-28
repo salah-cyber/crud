@@ -146,7 +146,19 @@ function showData()
         `
     }
     document.getElementById('tbody').innerHTML = table;
-
+    
+    
+    
+    // دي الوظيفة اللي شغالة على طول 
+    // هخليها تعرض زرار حذف الكل لو فيه بيانات
+    let deleteAll = document.getElementById('deleteAll');
+    if (dataPro.length > 0) {
+        deleteAll.innerHTML = `<button onclick="deleteAll()">delete All</button>`;
+    }
+    else
+    {
+        deleteAll.innerHTML = ''
+    }
 
 }
 showData(); 
@@ -175,7 +187,21 @@ function deletePro(i)
 }
 
 
+//deleta all
+ function deleteAll()
+ {
+    // الزار مش موجود لو فيه بيانات 
+    // هعمله فوق الجدول بحجز دف له واضيف الزرار بالجافا 
+    // لازم تاخد بالك ان الذاكرة والقراية بتاخد من المصفوفة 
+    // وبالتالي لو حذفت العناصر من الذاكرة هتفضل معروضة على لموقع 
+    localStorage.clear();
+    dataPro.splice(0);
+    // يبقى هحذف الاكرة والمصفوفة واحدث القراية
+    showData()
 
+
+
+ }
 
 
 
