@@ -82,6 +82,8 @@ submit.onclick = function () {
     // احفظ كائنات المستخدم في مصفوفة علشان متضعش
     dataPro.push(newPro);
     //console.log(dataPro);
+    //3rd function 
+    //save localstorage
     //لو عملت ريفرش للصفحة الداتا هتروح
     // كمان عايز احفظ البيانات في الاكرة المحلية علشان متضعش
     localStorage.setItem('product', JSON.stringify(dataPro) )
@@ -97,8 +99,6 @@ submit.onclick = function () {
 
 
 
-//3rd function 
-//save localstorage
 
 
 //4th function 
