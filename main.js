@@ -71,10 +71,24 @@ submit.onclick = function () {
         count : count.value,
         category : category.value
     }
+
+    if(newPro.count > 1){
+        for (let i = 0; i < newPro.count; i++) {
+        dataPro.push(newPro);
+        }
+    }else { // واحد ظريف كتبلك سالب او صفر 
+        dataPro.push(newPro);
+    }
+
+
     //console.log(newPro);
     // احفظ كائنات المستخدم في مصفوفة علشان متضعش
-    dataPro.push(newPro);
+    //dataPro.push(newPro);
     //console.log(dataPro);
+
+
+
+
     //3rd function 
     //save localstorage
     //لو عملت ريفرش للصفحة الداتا هتروح
@@ -153,7 +167,7 @@ function showData()
     // هخليها تعرض زرار حذف الكل لو فيه بيانات
     let deleteAll = document.getElementById('deleteAll');
     if (dataPro.length > 0) {
-        deleteAll.innerHTML = `<button onclick="deleteAll()">delete All</button>`;
+        deleteAll.innerHTML = `<button onclick="deleteAll()">delete All (${dataPro.length})</button>`;
     }
     else
     {
@@ -198,9 +212,6 @@ function deletePro(i)
     dataPro.splice(0);
     // يبقى هحذف الاكرة والمصفوفة واحدث القراية
     showData()
-
-
-
  }
 
 
