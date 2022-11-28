@@ -37,7 +37,7 @@ input:focus{
     width: 20%;
 }
 #total{ /*زرار التوتال*/
-    background-color: red;
+    background-color: rgb(218, 0, 0);
     padding: 5px 2px;
     border-radius: 4px;
     margin: 5px 0;
